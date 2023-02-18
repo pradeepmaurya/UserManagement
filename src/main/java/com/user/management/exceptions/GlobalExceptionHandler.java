@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -28,12 +29,15 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<Map<String, String>>(resp, HttpStatus.BAD_REQUEST);
 	}
-	
+	@SuppressWarnings("unchecked")
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<Map<String, String>> handleMethodArgsMessageNotRedable(HttpMessageNotReadableException ex){
+	public HttpInputMessage handleMethodArgsMessageNotRedable(HttpMessageNotReadableException ex){
 		Map<String, String> resp = new HashMap<>();
-		ex.
-		System.out.print(ex.getMessage());
-		return new ResponseEntity<Map<String,String>>(resp, HttpStatus.BAD_REQUEST);
+		
+		return ex.getHttpInputMessage();
+//		String message = ex.getMessage().formatted(null);
+//		System.out.print(message);
+//		return new ResponseEntity<Map<String,String>>(resp, HttpStatus.BAD_REQUEST);
 	}
 }
+

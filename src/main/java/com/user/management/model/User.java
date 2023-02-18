@@ -27,7 +27,7 @@ public class User {
 	private String email;
 	@NotEmpty
 	private String phoneNumber;
-	@JsonFormat(pattern = "MM/dd/yyyy")
+	@JsonFormat(pattern = "MM-dd-yyyy")
 	private Date date;
 	@JsonFormat(pattern = "HH:MM")
 	private Date time;
