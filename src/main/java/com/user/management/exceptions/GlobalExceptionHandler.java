@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.user.management.model.User;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> handleMethodArgsNotValidException(MethodArgumentNotValidException ex){
@@ -29,15 +33,13 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<Map<String, String>>(resp, HttpStatus.BAD_REQUEST);
 	}
-	@SuppressWarnings("unchecked")
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public HttpInputMessage handleMethodArgsMessageNotRedable(HttpMessageNotReadableException ex){
-		Map<String, String> resp = new HashMap<>();
-		
-		return ex.getHttpInputMessage();
-//		String message = ex.getMessage().formatted(null);
-//		System.out.print(message);
-//		return new ResponseEntity<Map<String,String>>(resp, HttpStatus.BAD_REQUEST);
+	
+	public ResponseEntity<Map<String, String>> validDate(User data){
+		HashMap<String, String> map = new HashMap<>();
+		String datePattern = "^\\d{2}-\\d{2}-\\d{4}$";
+		if(!data.getDate().toString().matches(datePattern)) {
+			map.put("Date", "Please enter valid Date");
+		}
+		return new ResponseEntity<Map<String,String>>(map,HttpStatus.BAD_REQUEST);
 	}
 }
-

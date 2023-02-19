@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+//import com.user.management.exceptions.ValidException;
 import com.user.management.model.User;
 
 @Service
@@ -16,6 +17,8 @@ public class UserService {
 	@Autowired
 	private UserRepo repo;
 	
+	@Autowired
+//	private ValidException validException;
 	//Get User Data
 	public List<User> getAllUser(){
 		return repo.findAll();
@@ -30,12 +33,14 @@ public class UserService {
 	
 	//Add User Data
 	public User addUserData(User data) {
+		
 		return repo.save(data);
 	}
 	
 	//Update User by id
 	public User updateUserById(User data) {
 		User user = repo.findById(data.getUserId()).get();
+		
 		user.setUserName(data.getUserName());
 		user.setDateOfBirth(data.getDateOfBirth());
 		user.setEmail(data.getEmail());

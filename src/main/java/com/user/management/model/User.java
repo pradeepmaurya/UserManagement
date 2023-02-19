@@ -8,7 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,20 +24,33 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class User {
 
 	@Id
+//	@NotEmpty(message = "User id Should not be Empty!!")
 	private Integer userId;
+	
 	@NotEmpty(message = "userName should not be Empty!!")
+	@Size(min = 3, max = 20, message = "please enter user between 3 t0 20 characters")
 	private String userName;
+	
 	@NotEmpty(message = " Date of birth should not be Empty!!")
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private String dateOfBirth;
-	@Email
+	
+	@NotEmpty(message = "userName should not be Empty!!")
+	@Email(message = "please enter valid email address!!")
 	private String email;
-	@NotEmpty
+	
+	@NotEmpty(message = "phone number should not be empty")
+	@Size(min = 12, max = 12, message = "Please enter phone number 12 digit!!")
 	private String phoneNumber;
-	@JsonFormat(pattern = "MM-dd-yyyy")
-	private Date date;
+	
+	@NotEmpty(message = "should not be Empty!!")
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private String date;
+	
+	@NotEmpty(message = "Should not be Empty!!")
 	@JsonFormat(pattern = "HH:MM")
-	private Date time;
+	private String time;
+	
 	public Integer getUserId() {
 		return userId;
 	}
@@ -61,20 +81,20 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
-	public User(Integer userId, String userName, String dateOfBirth, String email, String phoneNumber, Date date,
-			Date time) {
+	public User(Integer userId, String userName, String dateOfBirth, String email, String phoneNumber, String date,
+			String time) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
