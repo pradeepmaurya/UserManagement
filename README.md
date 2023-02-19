@@ -1,4 +1,7 @@
 # UserManagement
 ***
-##Requirements
-  *H2 DataBase
+## Requirements
+-H2 DataBase
+-Model
+-View
+-Controller
