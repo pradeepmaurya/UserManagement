@@ -1,7 +1,9 @@
 # UserManagement
 ***
 ## Requirements
--H2 DataBase
--Model
--View
--Controller
+  * H2 DataBase
+  * Model
+  * View
+  * Controller
+  * GlobalExceptionHandeling
+ 
